@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkinShop</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #050b08;
+    overflow: hidden;
+    color: white;
+}
+
+/* ===== soft glow background ===== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        rgba(0,255,180,0.10),
+        transparent 60%);
+    pointer-events: none;
+}
+
+/* ===== PARTICLES ===== */
+#particles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(0,255,200,0.85);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,255,200,0.6);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* ===== HEADER ===== */
+header {
+    text-align: center;
+    padding: 25px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #00ffb3;
+    text-shadow: 0 0 20px rgba(0,255,180,0.6);
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    margin: 0;
+}
+
+.hero p {
+    opacity: 0.75;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+    margin-top: 25px;
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(90deg, #00ffb3, #00c3ff);
+    color: black;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* ===== SHOP ===== */
+.shop {
+    display: none;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+/* ===== CARD ===== */
+.card {
+    width: 230px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(0,255,180,0.25);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-14px) scale(1.07);
+    box-shadow: 0 0 40px rgba(0,255,180,0.45);
+}
+
+/* ===== IMAGE ===== */
+.skin-img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    transition: 0.3s;
+    filter: drop-shadow(0 0 10px rgba(0,255,180,0.5));
+}
+
+.card:hover .skin-img {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+/* PRICE */
+.price {
+    margin: 10px 0;
+    opacity: 0.85;
+}
+
+/* BUY */
+.buy {
+    display: inline-block;
+    padding: 10px 15px;
+    background: linear-gradient(90deg, #00ffb3, #00c3ff);
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.buy:hover {
+    transform: scale(1.1);
+}
+
+/* fade */
+.fade-in {
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header>
+    <div class="logo">SKINSHOP</div>
+</header>
+
+<section class="hero" id="hero">
+    <h1>CS2 MARKETPLACE</h1>
+    <p>Fast • Secure • Neon Trading</p>
+
+    <div class="btn" onclick="openShop()">
+        Start Trading
+    </div>
+</section>
+
+<section class="shop" id="shop">
+
+    <div class="card fade-in">
+        <img class="skin-img" src="images/ak.png">
+        <h3>AK-47 Asiimov</h3>
+        <div class="price">12 500 ₽</div>
+        <a class="buy" href="https://t.me/SkinShopTradeBot?start=AK-47_Asiimov">Купить</a>
+    </div>
+
+    <div class="card fade-in">
+        <img class="skin-img" src="images/awp.png">
+        <h3>AWP Dragon Lore</h3>
+        <div class="price">250 000 ₽</div>
+        <a class="buy" href="https://t.me/SkinShopTradeBot?start=AWP_Dragon_Lore">Купить</a>
+    </div>
+
+    <div class="card fade-in">
+        <img class="skin-img" src="images/m4a4.png">
+        <h3>M4A4 Howl</h3>
+        <div class="price">180 000 ₽</div>
+        <a class="buy" href="https://t.me/SkinShopTradeBot?start=M4A4_Howl">Купить</a>
+    </div>
+
+</section>
+
+<script>
+function openShop() {
+    document.getElementById("hero").style.display = "none";
+    document.getElementById("shop").style.display = "flex";
+}
+
+/* particles */
+const particles = document.getElementById("particles");
+
+for (let i = 0; i < 160; i++) {
+    let p = document.createElement("div");
+    p.classList.add("particle");
+
+    let size = 1 + Math.random() * 3;
+
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+
+    p.style.animationDuration = (4 + Math.random() * 6) + "s";
+    p.style.animationDelay = Math.random() * 5 + "s";
+
+    particles.appendChild(p);
+}
+</script>
+
+</body>
+</html>
